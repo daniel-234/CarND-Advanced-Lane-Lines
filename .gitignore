@@ -1,2 +1,4 @@
 .ipynb_checkpoints
-*/.ipynb_checkpoints/*
+
+# Program output
+drawn_chessboards_corners_output/
