@@ -19,12 +19,12 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./output_images/undistort_output.png "Undistorted"
+[image1]: ./output_images/undistort_output.jpg "Undistorted"
 [image2]: ./test_images/test1.jpg "Road Transformed"
 [image3]: ./output_images/binary_combo_example.jpg "Binary Example"
 [image4]: ./output_images/warped_straight_lines.jpg "Warp Example"
 [image5]: ./output_images/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image6]: ./output_images/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -66,14 +66,14 @@ I used a combination of color and gradient thresholds to generate a binary image
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in the 7th code cell of the IPython notebook.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `warper()`, which appears in the 7th code cell of the IPython notebook.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner (you can find them in the 6th code cell of the Notebook):
 
 ```python
 src = np.float32(
-    [[(img_size[0] / 2 - 65), (img_size[1] / 2 + 100)],
+    [[(img_size[0] / 2 - 59), (img_size[1] / 2 + 100)],
     [(img_size[0] / 6 - 10), img_size[1]],
-    [(img_size[0] * 5 / 6 + 35), img_size[1]],
-    [(img_size[0] / 2 + 65), (img_size[1] / 2 + 100)]])
+    [(img_size[0] * 5 / 6 + 40), img_size[1]],
+    [(img_size[0] / 2 + 61), (img_size[1] / 2 + 100)]])
 dst = np.float32(
     [[(img_size[0] / 4), 0],
     [(img_size[0] / 4), img_size[1]],
@@ -85,10 +85,10 @@ This resulted in the following source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
-| 575, 460      | 320, 0        | 
+| 581, 460      | 320, 0        | 
 | 203, 720      | 320, 720      |
-| 1102, 720     | 960, 720      |
-| 705, 460      | 960, 0        |
+| 1107, 720     | 960, 720      |
+| 701, 460      | 960, 0        |
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
@@ -96,17 +96,17 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff in cells 9 and 10 and fit my lane lines with a 2nd order polynomial kinda like this:
+Then I created a binary warped image in cell 8, added a function to find peaks in a histogram from that binary warped image (code cell 9) and fit my lane lines with a 2nd order polynomial on cell 10. This is my result:
 
 ![alt text][image5]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+I did this in code cell 11 in the `advanced_lane_finding.ipynb` IPython notebook. 
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+I implemented this step in code cells 12 and 13 in the functions `draw()` and `pipeline()`. The `draw()` function draws the measurements back onto the road, while the `pipeline()` function applies all the methods described above to find the lines and apply the results. Here is an example of my result on a test image:
 
 ![alt text][image6]
 
